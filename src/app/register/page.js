@@ -27,21 +27,14 @@ export default function Page() {
   calling the fetch to get things from the database.
   */ 
   async function runDBCallAsync(url) {
-
-
     const res = await fetch(url);
     const data = await res.json();
-
- 
-    if(data.data== "valid"){
-      console.log("login is valid!")
-
-      
+    if(data.data== "true"){
+    console.log("registered")
     } else {
-
-      console.log("not valid  ")
+    console.log("not registered ")
     }
-  }
+    }
 
 
   /*
@@ -61,12 +54,16 @@ export default function Page() {
 
     let email = data.get('email')
 		let pass = data.get('pass')
+    let pass2 = data.get('pass2')
+		let tel = data.get('tel')
 
     console.log("Sent email:" + email)
     console.log("Sent pass:" + pass)
+    console.log("Sent pass2:" + pass2)
+    console.log("Sent tel:" + tel)
 
 
-    runDBCallAsync(`http://localhost:3000/api/login?email=${email}&pass=${pass}`)
+    runDBCallAsync(`http://localhost:3000/api/register?email=${email}&pass=${pass}&pass2=${pass2}&tel=${tel}`)
 
 
 
@@ -106,7 +103,7 @@ export default function Page() {
           
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Register
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -129,34 +126,37 @@ export default function Page() {
             id="pass"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="pass2"
+            label="Pass2"
+            type="pass2"
+            id="pass2"
+            autoComplete="current-password"
           />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="tel"
+            label="tel"
+            type="tel"
+            id="tel"
+            autoComplete="current-password"
+          />
+          
           <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign In
+            Register
           </Button>
 
 
-
-
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="../register" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
         </Box>
       </Box>
 
